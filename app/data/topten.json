@@ -1,4 +1,19 @@
-[{"name":"nemanja",
-"elevation":"1520"
+[{
+"position":"1",
+"name":"nemanja",
+"elevation":"1520",
+"coords":{
+	"latitude":"45",
+	"longitude":"-72"
+}
+},
+{
+"position":"2",
+"name":"user2",
+"elevation":"200",
+"coords":{
+	"latitude":"40",
+	"longitude":"-53"
+}
 }
 ]

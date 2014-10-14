@@ -1,15 +1,26 @@
-
-<div class="container">
+<div class="container-fluid">
     <div class="row">
 
         <div class="col-sm-8">
             <div>
                 <ec-get-elevation></ec-get-elevation>
             </div>
+            <div>
+                <ui-gmap-google-map center="map.center" zoom="map.zoom">
+
+<div ng-repeat="item in topten">
+                      <ui-gmap-marker coords="item.coords" events="events" idkey="item.position">
+        </ui-gmap-marker>
+
+</div>
+
+
+                </ui-gmap-google-map>
+            </div>
         </div>
 
         <div class="col-sm-4">
-            <ec-top-list  info="topten"></ec-top-list>
+            <ec-top-list info="topten" index="shownElevation"></ec-top-list>
         </div>
 
     </div>

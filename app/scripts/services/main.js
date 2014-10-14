@@ -2,13 +2,26 @@
 angular.module('elevationContestApp')
     .service('mainService', function ($http, $q) {
         var service = {};
+        var topTenData;
 
         service.getTopTenList = function () {
             var promise = $http.get('data/topten.json').success(function (data) {
-                console.log(data);
+                topTenData = data;
                 return data;
             });
             return promise;
+        };
+
+        service.getElevationRank = function (height) {
+            if (height > topTenData[topTenData.length - 1].elevation) {
+                //Find position
+                var position = 1;
+
+                return position;
+            }
+            else {
+                return -1;
+            }
         };
 
         service.getLocation = function () {
@@ -53,7 +66,14 @@ angular.module('elevationContestApp')
 
                         // Retrieve the first result
                         var elevation = results[0].elevation;
-                        deferred.resolve(elevation);
+
+                        //Create custom object
+                        var returnObject = {
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude,
+                            height: elevation
+                        };
+                        deferred.resolve(returnObject);
                     }
                 });
 

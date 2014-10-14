@@ -6,11 +6,12 @@ describe('Controller: MainCtrl', function () {
     beforeEach(module('elevationContestApp'));
 
     var MainCtrl,
+        MainService,
       scope,
         $httpBackend;
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function (_$httpBackend_, $rootScope, $controller) {
+    beforeEach(inject(function (_$httpBackend_, $rootScope, $controller, _mainService) {
         $httpBackend = _$httpBackend_;
 
         $httpBackend.expectGET('data/topten.json').
@@ -18,7 +19,7 @@ describe('Controller: MainCtrl', function () {
 
         scope = $rootScope.$new();
         MainCtrl = $controller('MainCtrl', { $scope: scope });
-
+        MainService = _mainService;
     }));
 
     it('should attach a list of top ten evevations to the scope', function () {
@@ -33,5 +34,11 @@ describe('Controller: MainCtrl', function () {
         $httpBackend.flush();
 
         expect(scope.topten.length).toEqual(2);
+    });
+
+    it('should return rank 2', function () {
+        
+
+
     });
 });

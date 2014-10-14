@@ -4,7 +4,8 @@ angular.module('elevationContestApp')
         return {
             restrict: 'E',
             scope: {
-                topten: '=info'
+                topten: '=info',
+                shownElevation: '=index'
             },
             templateUrl: 'views/templates/top-list.html',
         };
