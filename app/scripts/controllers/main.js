@@ -8,9 +8,16 @@
  * Controller of the elevationContestApp
  */
 angular.module('elevationContestApp')
-  .controller('MainCtrl', function ($scope, $http) {
-      $http.get('data/topten.json').success(function (data) {
-          console.log(data);
+  .controller('MainCtrl', ['mainService', '$scope', function (mainService, $scope) {
+      mainService.getTopTenList().success(function (data) {
           $scope.topten = data;
+
+          $scope.getElevationData = function () {
+              mainService.getElevation().then(function (data) {
+                  console.log(data);
+              });
+              
+          };
       });
-  });
+
+  }]);

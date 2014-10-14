@@ -12,12 +12,11 @@ angular.module('elevationContestApp')
     .directive('ecGetElevation', function () {
         return {
             restrict: 'E',
-            link:function (scope) {
+            link: function (scope) {
                 scope.getElevation = function () {
-                    
-
-
+                    scope.getElevationData();
                 };
+               
             },
             template: '<button class="btn btn-primary" ng-click="getElevation()">Get my elevation!</button>',
         };
