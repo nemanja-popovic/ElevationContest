@@ -35,15 +35,28 @@ angular.module('elevationContestApp')
             //Get location
             var location = this.getLocation();
             location.then(function (position) {
-                console.log(position);
+
+                //Greate googles object for position
+                var latLang = new window.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                var elevator = new window.google.maps.ElevationService();
+                var locations = [];
+                locations.push(latLang);
+                var positionalRequest = {
+                    'locations': locations
+                };
 
 
-                var url = 'https://maps.googleapis.com/maps/api/elevation/json?locations=' + position.coords.latitude + ',' + position.coords.longitude;
-                var promise = $http.get(url).success(function (data) {
-                   
-                    deferred.resolve(data);
+                // Initiate the location request
+                elevator.getElevationForLocations(positionalRequest, function (results, status) {
+                    if (status === window.google.maps.ElevationStatus.OK) {
+
+                        // Retrieve the first result
+                        var elevation = results[0].elevation;
+                        deferred.resolve(elevation);
+                    }
                 });
-                return promise;
+
             });
             return deferred.promise;
         };
