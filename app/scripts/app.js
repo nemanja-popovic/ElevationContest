@@ -9,4 +9,4 @@
  * Main module of the application.
  */
 angular
-  .module('elevationContestApp', ['google-maps'.ns()]);
+  .module('elevationContestApp', ['google-maps'.ns(), 'ui.bootstrap']);

@@ -17,7 +17,7 @@ angular.module('elevationContestApp')
    }]);
 
 angular.module('elevationContestApp')
-  .controller('MainCtrl', ['mainService', '$scope', 'GoogleMapApi'.ns(), function (mainService, $scope, GoogleMapApi) {
+  .controller('MainCtrl', ['mainService', '$scope','$modal', 'GoogleMapApi'.ns(), function (mainService, $scope,$modal, GoogleMapApi) {
 
       GoogleMapApi.then(function (maps) {
 
@@ -32,23 +32,70 @@ angular.module('elevationContestApp')
       };
 
       $scope.getElevationData = function () {
+
+          //Loading animation
+          $scope.showLoader = true;
+
+          //Show that the user made top 10 and ask for his name
           mainService.getElevation().then(function (data) {
               var currentData = data;
 
+              console.log(currentData);
+
+              $scope.showLoader = false;
+
               var rank = mainService.getElevationRank(currentData.height);
+              console.log(rank);
               if (rank > 0) {
+                  $modal.open({
+                      templateUrl: 'views/templates/sucess.html',
+                      backdrop: true,
+                      windowClass: 'modal',
+                      controller: function ($scope, $modalInstance, $log, user) {
+                          $scope.user = user;
+                          $scope.add = function () {
 
-                 
-                  //Show that the user made top 10 and ask for his name
+                              console.log($scope.user);
 
+                              $modalInstance.dismiss('cancel');
 
-
-                  //Update scope
-                  $scope.topten = service.updateTopTenList(currentData);
-
+                              var newItem = {
+                                  "position": rank + 1,
+                                  "name": $scope.user.name,
+                                  "elevation": currentData.height,
+                                  "coords": {
+                                      "latitude": currentData.lat,
+                                      "longitude": currentData.lon
+                                  }
+                              };
+                              //Update scope
+                              $scope.topten = mainService.updateTopTenList(newItem);
+                              console.log($scope.topten);
+                          }
+                          $scope.cancel = function () {
+                              $modalInstance.dismiss('cancel');
+                          };
+                      },
+                      resolve: {
+                          user: function () {
+                              return $scope.user;
+                          }
+                      }
+                  });
+                
               }
               else {
                   //Message that this time didn't made top 10
+                  $modal.open({
+                      templateUrl: 'views/templates/fail.html',
+                      backdrop: true,
+                      windowClass: 'modal',
+                      controller: function ($scope, $modalInstance) {
+                          $scope.ok = function () {
+                              $modalInstance.dismiss('cancel');
+                          };
+                      }
+                  });
               }
           });
 
@@ -69,6 +116,8 @@ angular.module('elevationContestApp')
       };
 
       $scope.shownElevation = 0;
+      $scope.showNameField = false;
+      $scope.showLoader = false;
 
       mainService.getTopTenList().success(function (data) {
           $scope.topten = data;
