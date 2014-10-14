@@ -19,6 +19,6 @@ angular.module('elevationContestApp')
                 };
                
             },
-            template: '<button class="btn btn-primary" ng-click="getElevation()">Get my elevation!</button>',
+            template: '<button class="btn btn-primary btn-elevation" ng-click="getElevation()">Get my elevation! <span class="glyphicon glyphicon-flag"></span></button>',
         };
     });

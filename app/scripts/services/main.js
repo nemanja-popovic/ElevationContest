@@ -12,6 +12,16 @@ angular.module('elevationContestApp')
             return promise;
         };
 
+        service.saveTopTenList = function () {
+            $http.post('data/topten.json', topTenData).then(function (data) {
+                
+            });
+        };
+
+        service.updateTopTenList = function () {
+            return topTenData;
+        };
+
         service.getElevationRank = function (height) {
             if (height > topTenData[topTenData.length - 1].elevation) {
                 //Find position

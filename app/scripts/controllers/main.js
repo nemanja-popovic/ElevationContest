@@ -37,7 +37,15 @@ angular.module('elevationContestApp')
 
               var rank = mainService.getElevationRank(currentData.height);
               if (rank > 0) {
+
+                 
                   //Show that the user made top 10 and ask for his name
+
+
+
+                  //Update scope
+                  $scope.topten = service.updateTopTenList(currentData);
+
               }
               else {
                   //Message that this time didn't made top 10
@@ -52,8 +60,6 @@ angular.module('elevationContestApp')
 
       $scope.events = {
           mouseover: function (marker, eventName, args) {
-              //Show tooltip??
-
               $scope.shownElevation = args.idKey;
               console.log($scope.shownElevation);
           },

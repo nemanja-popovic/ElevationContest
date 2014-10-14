@@ -1,13 +1,14 @@
-﻿<ul class="list-group" ng-repeat="user in topten">
-    <li class="list-group-item" ng-click="showOnMap(user)"  ng-class="{active: ($index+1) == shownElevation}">
-
-        <!--<span class="list-group-position">{{$index + 1}}</span>{{user.name}}-->
-
-
-
+﻿<div class="list-group">
+    <a href="#" ng-repeat="user in topten" class="list-group-item" ng-click="showOnMap(user)" ng-class="{active: ($index+1) == shownElevation}">
         <span class="badge">{{$index + 1}}</span>
         <h4 class="list-group-item-heading">{{user.elevation}} m</h4>
-        <p class="list-group-item-text">{{user.name | capitalize}}</p>
-    </li>
+        <div ng-show="($index+1) == shownElevation">
+            <h3 class="list-group-item-text">{{user.name | capitalize}}</h3>
+            <p class="list-group-item-text">Latitude: {{user.coords.latitude}}</p>
+            <p class="list-group-item-text">Longitude: {{user.coords.longitude}}</p>
+        </div>
+    </a>
+</div>
 
-</ul>
+
+
