@@ -4,6 +4,7 @@ angular.module('elevationContestApp')
         var service = {};
         var topTenData;
 
+
         service.getTopTenList = function () {
             var promise = $http.get('data/topten.json').success(function (data) {
                 topTenData = data;
@@ -13,8 +14,8 @@ angular.module('elevationContestApp')
         };
 
         service.saveTopTenList = function () {
-            $http.post('data/topten.json', topTenData).then(function (data) {
-                
+            $http.post('data/topten.json', topTenData).then(function () {
+
             });
         };
 
@@ -23,20 +24,23 @@ angular.module('elevationContestApp')
             console.log(newItem);
 
             var position = newItem.position;
+            if (topTenData) {
 
-            var p = topTenData.splice(position, 0, newItem);
-
-            console.log(topTenData);
-            console.log(p);
-            console.log(p.join());
-          //  service.saveTopTenList();
+                topTenData.splice(position, 0, newItem);
+            }
+            else {
+                topTenData = [];
+                topTenData[0] = newItem;
+            }
+            //  service.saveTopTenList();
 
             return topTenData;
         };
 
         service.getElevationRank = function (height) {
+            var position = 0;
             if (topTenData.length < 10) {
-                var position = 0;
+
 
                 while (topTenData.length > position && topTenData[position].elevation > height) {
                     position++;
@@ -47,7 +51,7 @@ angular.module('elevationContestApp')
             else {
                 if (height > topTenData[topTenData.length - 1].elevation) {
                     //Find position
-                    var position = 0;
+                    position = 0;
 
                     while (topTenData[position].elevation > height) {
                         position++;

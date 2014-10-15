@@ -1,27 +1,17 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name elevationContestApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the elevationContestApp
- */
 angular.module('elevationContestApp')
-   .config(['GoogleMapApiProvider'.ns(), function (GoogleMapApi) {
-       GoogleMapApi.configure({
-           //    key: 'your api key',
-           v: '3.17',
-           libraries: 'weather,geometry,visualization'
-       });
-   }]);
-
-angular.module('elevationContestApp')
-  .controller('MainCtrl', ['mainService', '$scope','$modal', 'GoogleMapApi'.ns(), function (mainService, $scope,$modal, GoogleMapApi) {
-
-      GoogleMapApi.then(function (maps) {
-
+  .config(['GoogleMapApiProvider'.ns(), function (GoogleMapApi) {
+      GoogleMapApi.configure({
+          //    key: 'your api key',
+          v: '3.17',
+          libraries: 'weather,geometry,visualization'
       });
+
+  }]);
+
+angular.module('elevationContestApp')
+  .controller('MainCtrl', ['mainService', '$scope', '$modal', function (mainService, $scope, $modal) {
 
       $scope.map = {
           center: {
@@ -60,18 +50,18 @@ angular.module('elevationContestApp')
                               $modalInstance.dismiss('cancel');
 
                               var newItem = {
-                                  "position": rank + 1,
-                                  "name": $scope.user.name,
-                                  "elevation": currentData.height,
-                                  "coords": {
-                                      "latitude": currentData.lat,
-                                      "longitude": currentData.lon
+                                  'position': rank + 1,
+                                  'name': $scope.user.name,
+                                  'elevation': currentData.height,
+                                  'coords': {
+                                      'latitude': currentData.lat,
+                                      'longitude': currentData.lon
                                   }
                               };
                               //Update scope
                               $scope.topten = mainService.updateTopTenList(newItem);
                               console.log($scope.topten);
-                          }
+                          };
                           $scope.cancel = function () {
                               $modalInstance.dismiss('cancel');
                           };
@@ -82,7 +72,7 @@ angular.module('elevationContestApp')
                           }
                       }
                   });
-                
+
               }
               else {
                   //Message that this time didn't made top 10
@@ -98,10 +88,6 @@ angular.module('elevationContestApp')
                   });
               }
           });
-
-      };
-
-      $scope.showOnMap = function (user) {
 
       };
 

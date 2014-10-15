@@ -26,7 +26,11 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components / lodash / dist / lodash.min.js',
+      'bower_components/bluebird/js/browser/bluebird.js',
+      'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
     ],
 
     // list of files / patterns to exclude
